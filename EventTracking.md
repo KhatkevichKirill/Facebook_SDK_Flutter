@@ -53,3 +53,69 @@ Implement the following standard events using the `facebook_app_events` plugin.
   },
   );
    ```
+  ### 4. Initiate Checkout
+
+- **When:** User begins the checkout process.
+- **Implementation:**
+
+  ```dart
+  FacebookAppEvents().logEvent(
+  name: 'fb_mobile_initiated_checkout',
+  parameters: {
+    'num_items': numItems,
+    'payment_info_available': paymentInfoAvailable ? '1' : '0',
+    'currency': 'USD',
+  },
+  );
+   ```
+  ### 5. Purchase
+
+- **When:** User completes an order.
+- **Implementation:**
+
+  ```dart
+  FacebookAppEvents().logPurchase(
+  amount: totalAmount,
+  currency: 'USD',
+  parameters: {
+    'content_type': 'order',
+    'content_id': orderId,
+  },
+  );
+   ```
+
+  ## Custom Events
+  
+    ### Table Reservation
+
+- **When:** User reserves a table.
+- **Implementation:**
+
+  ```dart
+  FacebookAppEvents().logEvent(
+  name: 'ReserveTable',
+  parameters: {
+    'restaurant_id': restaurantId,
+    'number_of_guests': numberOfGuests,
+    'reservation_time': reservationTime.toIso8601String(),
+  },
+  );
+   ```
+
+  ## Event Implementation Examples
+
+  **Logging a Purchase Event**
+
+    ```dart
+    FacebookAppEvents().logPurchase(
+  amount: purchaseAmount,
+  currency: 'USD',
+  parameters: {
+    'content_type': 'order',
+    'content_id': orderId,
+  },
+  );
+  ```
+
+  
+  
