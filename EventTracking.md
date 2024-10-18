@@ -107,7 +107,7 @@ Implement the following standard events using the `facebook_app_events` plugin.
   **Logging a Purchase Event**
 
     ```dart
-    FacebookAppEvents().logPurchase(
+  FacebookAppEvents().logPurchase(
   amount: purchaseAmount,
   currency: 'USD',
   parameters: {
@@ -116,6 +116,12 @@ Implement the following standard events using the `facebook_app_events` plugin.
   },
   );
   ```
+    
+  **Logging User Consent Status**
+   ```dart
+   bool userConsent = await getUserConsentStatus();
+   FacebookAppEvents.setAdvertiserTracking(enabled: userConsent);
+    ```
+   
 
-  
   
