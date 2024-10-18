@@ -2,7 +2,6 @@
 
 ### **5. TestingAndValidation.md**
 
-```markdown
 # Testing and Validation
 
 ## Use Facebook's Testing Tools
