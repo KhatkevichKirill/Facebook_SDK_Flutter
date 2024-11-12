@@ -86,14 +86,14 @@ Implement the following standard events using the `facebook_app_events` plugin.
 
   ## Custom Events
   
-    ### Table Reservation
+    ### Contact me
 
 - **When:** User reserves a table.
 - **Implementation:**
 
   ```dart
   FacebookAppEvents().logEvent(
-  name: 'ReserveTable',
+  name: 'ContactMe',
   parameters: {
     'restaurant_id': restaurantId,
     'number_of_guests': numberOfGuests,
