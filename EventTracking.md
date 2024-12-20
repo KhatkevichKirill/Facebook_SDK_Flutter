@@ -14,12 +14,16 @@ Implement the following standard events using the `facebook_app_events` plugin.
 - **Implementation:**
 
   ```dart
-  FacebookAppEvents().logEvent(
-    name: 'fb_mobile_search',
-    parameters: {
-      'fb_search_string': searchQuery,
-      'content_type': contentType, // 'restaurant' or 'food_item'
-    },
+  FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+  
+  facebookAppEvents.logEvent(
+  name: 'fb_mobile_search',
+  parameters: {
+    'fb_search_string': 'pizza',
+    'fb_content_type': 'food_item',
+    // Если необходимо, можно добавить fb_content для уточнения результатов:
+    // 'fb_content': '[{"id":"pizza-category"}]'
+  },
   );
   ```
 
@@ -29,13 +33,18 @@ Implement the following standard events using the `facebook_app_events` plugin.
 - **Implementation:**
 
   ```dart
-  FacebookAppEvents().logEvent(
+  FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+  
+  facebookAppEvents.logEvent(
   name: 'fb_mobile_content_view',
   parameters: {
-    'content_id': contentId,
-    'content_type': contentType, // 'restaurant' or 'menu_item'
+    'fb_content': '[{"id":"1234"}]',
+    'fb_content_type': 'product',
+    'fb_content_id': '1234',
+    '_valueToSum': totalAmount,
+    'fb_currency': 'USD'
   },
-  );
+);
    ```
   ### 3. Add to Cart
 
@@ -43,13 +52,14 @@ Implement the following standard events using the `facebook_app_events` plugin.
 - **Implementation:**
 
   ```dart
-  FacebookAppEvents().logEvent(
+  facebookAppEvents.logEvent(
   name: 'fb_mobile_add_to_cart',
   parameters: {
-    'content_id': itemId,
-    'content_type': 'menu_item',
-    'value': price,
-    'currency': 'USD', // or appropriate currency code
+    'fb_content': '[{"id":"1234","quantity":1}]',
+    'fb_content_type': 'product',
+    'fb_content_id': '1234',
+    '_valueToSum': totalAmount, // Стоимость добавленного товара
+    'fb_currency': 'USD'
   },
   );
    ```
@@ -59,12 +69,16 @@ Implement the following standard events using the `facebook_app_events` plugin.
 - **Implementation:**
 
   ```dart
-  FacebookAppEvents().logEvent(
+  FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+
+  facebookAppEvents.logEvent(
   name: 'fb_mobile_initiated_checkout',
   parameters: {
-    'num_items': numItems,
-    'payment_info_available': paymentInfoAvailable ? '1' : '0',
-    'currency': 'USD',
+    'fb_content': '[{"id":"1234","quantity":2},{"id":"5678","quantity":1}]',
+    'fb_content_type': 'product',
+    'fb_num_items': 3, // пример: всего 3 предмета в корзине
+    'fb_payment_info_available': paymentInfoAvailable ? '1' : '0',
+    'fb_currency': 'USD'
   },
   );
    ```
@@ -74,13 +88,16 @@ Implement the following standard events using the `facebook_app_events` plugin.
 - **Implementation:**
 
   ```dart
-  FacebookAppEvents().logPurchase(
-  amount: totalAmount,
-  currency: 'USD',
+  FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+  
+  facebookAppEvents.logEvent(
+  name: 'fb_mobile_purchase',
   parameters: {
-    'content_type': 'order',
-    'content_id': orderId,
-  },
+    'fb_content': '[{"id":"1234","quantity":2},{"id":"5678","quantity":1}]',
+    'fb_content_type': 'product',
+    '_valueToSum': totalAmount, // Сумма покупки
+    'fb_currency': 'USD'
+  }
   );
    ```
 
@@ -92,12 +109,14 @@ Implement the following standard events using the `facebook_app_events` plugin.
 - **Implementation:**
 
   ```dart
-  FacebookAppEvents().logEvent(
+  FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+  
+  facebookAppEvents.logEvent(
   name: 'ContactMe',
   parameters: {
-    'restaurant_id': restaurantId,
-    'number_of_guests': numberOfGuests,
-    'reservation_time': reservationTime.toIso8601String(),
+    'fb_content': '[{"id":"restaurant_123"}]',
+    'fb_content_type': 'restaurant',
+    'fb_contact_method': 'phone' // или 'email', 'chat' в зависимости от способа связи
   },
   );
    ```
