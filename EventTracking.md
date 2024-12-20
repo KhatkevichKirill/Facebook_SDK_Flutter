@@ -44,9 +44,9 @@ Implement the following standard events using the `facebook_app_events` plugin.
     '_valueToSum': totalAmount,
     'fb_currency': 'USD'
   },
-);
+  );
    ```
-  ### 3. Add to Cart
+### 3. Add to Cart
 
 - **When:** User adds a food item to the cart.
 - **Implementation:**
